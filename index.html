@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="book finder">
+    <meta name="description" content="a book finder web app using vanilla Javascript and google API">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script lang="Javascript" defer src="script.js"></script>
+    <title>book finder web app</title>
+</head>
+<body>
+    <h2 id="title">find my book</h2>
+    <div>
+        <input type="text" value="" class="textArea" id="input-text" id="input-area" placeholder="enter text here.......">
+        <button id="search" class="searchButton" onclick="findBook()">search</button>
+        <button id="refresh" class="refreshButton">refresh</button>
+    </div>
+    <div id="list-output">
+        <h3>search results</h3>
+        <div id="search-output">
+
+        </div>
+    </div>
+<script lang="Javascript" defer src="script.js"></script>
+</body>
+</html>
