@@ -27,9 +27,9 @@ searchField.addEventListener('input', (e) => {
   searchResultsContainer.innerHTML = '';
   
   // display the titles of the book objects that include the text entered in input field
-  searchResults.forEach((element, index) => {
+  searchResults.forEach((book, index) => {
      const p = document.createElement('p');
-     p.textContent = (index + 1) + '. ' + element.title;
+     p.textContent = (index + 1) + '. ' + book.title + ' Author: ' + book.author + '. Publisher: ' +book.publisher;
      searchResultsContainer.appendChild(p);
   });
 });
