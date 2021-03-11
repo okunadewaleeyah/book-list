@@ -1,4 +1,4 @@
-var books = [
+let books = [
     {title: 'to catch a mockingbird', author: 'Mike Jameson', publisher: 'penguin'},
     {title: 'Slender Man', author: 'H. G. Wells', publisher: 'Private'},
     {title: 'Rick and Morty', author: 'Don Harmon and Justin Roiland', publisher: 'Adult Swim'},
@@ -7,39 +7,29 @@ var books = [
     {title: 'to catch a predator', author: 'Mike Upton', publisher: 'some dude?'},
 ]
 
+const searchField = document.querySelector('#search');
+const searchResultsContainer = document.querySelector('#searchresult');
 
-var searchButton = document.getElementById('search')
-var refreshButton = document.getElementById('refresh')
-var inputText = document.getElementById('input-area')
-
-function lookForMatch(book) {
-    if(inputText = '') {
-        return book 
-    } else {
-        
-    }
-}
-
-function findBook(book) {
-
-}
-    
-function displaySearch() {
-    document.getElementById('search-output').innerHTML = books.find(findBook)
-}
-
-function refreshPage() {
-
-}
-
-
-searchButton.addEventListener('click', button => {
-    findBook(),
-    displaySearch()
-    console.log('search')
-})
-
-refreshButton.addEventListener('click', button => {
-    refreshPage() 
-    console.log('refresh')
-})
+searchField.addEventListener('input', (e) => {
+  
+  // if input field is empty, clear the search results
+  if(e.target.value === '') {
+     searchResultsContainer.innerHTML = '';
+     return;
+  }
+  
+  // filter the books array
+  const searchResults = books.filter(book => {
+      return book.title.toLowerCase().includes(e.target.value.toLowerCase());
+  });
+  
+  // before displaying the search results, clear the search results div
+  searchResultsContainer.innerHTML = '';
+  
+  // display the titles of the book objects that include the text entered in input field
+  searchResults.forEach((element, index) => {
+     const p = document.createElement('p');
+     p.textContent = (index + 1) + '. ' + element.title;
+     searchResultsContainer.appendChild(p);
+  });
+});
