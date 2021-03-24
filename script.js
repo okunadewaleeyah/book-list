@@ -26,10 +26,10 @@ searchField.addEventListener('input', (e) => {
   // before displaying the search results, clear the search results div
   searchResultsContainer.innerHTML = '';
   
-  // display the titles of the book objects that include the text entered in input field
+  // display the book objects that include the text entered in input field
   searchResults.forEach((book, index) => {
      const p = document.createElement('p');
-     p.textContent = (index + 1) + '. ' + book.title + ' Author: ' + book.author + '. Publisher: ' +book.publisher;
-     searchResultsContainer.appendChild(p);
+     p.textContent = (index + 1) + '. ' + 'Title: ' + book.title + '. ' + "\n" + 'Author: ' + book.author + '. ' + "\n" + 'Publisher: ' + book.publisher;
+     searchResultsContainer.appendChild(p)
   });
 });

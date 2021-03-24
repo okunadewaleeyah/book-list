@@ -2,7 +2,11 @@ body{
     margin: 20px;
     padding: 20px;
 }
-
-#list-output {
-    visibility: ;
+div {
+    content: "\A";
+    white-space: pre-wrap;
+    word-break: break-all;
 }
+
+
+
