@@ -2,6 +2,8 @@ const form = document.querySelector('form')
 const ol = document.querySelector('ol')
 const clearAll = document.getElementById('clear-all')
 const input = document.getElementById('item')
+const link = document.querySelector('a')
+link.style.color = 'black'
 
 // creating a function that creates a list element. li sets the text of the element
 //to the parameter and appends the item to ol
@@ -49,3 +51,12 @@ clearAll.addEventListener('click', function () {
         ol.removeChild(ol.firstChild)
     }
 })
+
+// bookArray is being set to empty everytime script runs
+let books
+
+if (localStorage.getItem('books')) {
+  books = JSON.parse(localStorage.getItem('books'))
+} else {
+  books = []
+}
