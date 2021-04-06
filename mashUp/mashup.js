@@ -39,7 +39,7 @@ searchField.addEventListener('input', (e) => {
 
 // ADDing NEW BOOKS
 
-const form = document.querySelector('form')
+const form = document.querySelector('new-books')
 const ol = document.querySelector('ol')
 const clearAll = document.getElementById('clear-all')
 const input = document.getElementById('item')
