@@ -1,0 +1,12 @@
+body{
+    margin: 20px;
+    padding: 20px;
+}
+div {
+    content: "\A";
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+
+
