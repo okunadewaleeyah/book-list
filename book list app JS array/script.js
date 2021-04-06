@@ -36,6 +36,7 @@ searchField.addEventListener('input', (e) => {
   searchResults.forEach((book, index) => {
      const p = document.createElement('p');
      p.style.color = 'lavender'
+      p.style.fontFamily = 'cursive'
      p.textContent = (index + 1) + '. ' + 'Title: ' + book.title + '. ' + "\n" + 'Author: ' + book.author + '. ' + "\n" + 'Publisher: ' + book.publisher;
      searchResultsContainer.append(p)
   
