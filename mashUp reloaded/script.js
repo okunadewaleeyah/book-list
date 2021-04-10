@@ -1,22 +1,16 @@
 // book class: reps a book
 class Book {
-    constructor (title, author, publisher) {
+    constructor (title, author, bookId) {
         this.title = title
         this.author = author
-        this.publisher = publisher
+        this.bookId = bookId
     }
 }
 
 // Ui class: handle UI 
 class UI {
     static displayBooks() {
-        const storedBooks = [
-            {title: 'To catch a mockingbird', author: 'Mike Jameson', publisher: 'penguin'},
-            {title: 'Slender Man', author: 'H. G. Wells', publisher: 'Private'},
-            {title: 'Family Guy', author: 'seth MacFarlane', publisher: 'Fox TV'},
-            {title: 'American Dad', author: 'seth MacFarlane', publisher: 'penguin'}
-        ]
-        const books = storedBooks
+        const books = store.getBooks()
 
 // calling addBookToList in the UI because it is responisble
 // for adding the books to the table
@@ -36,7 +30,7 @@ class UI {
         row.innerHTML = `
         <td>${book.title}</td>
         <td>${book.author}</td>
-        <td>${book.publisher}</td>
+        <td>${book.bookId}</td>
         <td><a href="" class="btn btn-danger btn-sm delete">X</a></td>
         `
         // append the row to the list
@@ -80,11 +74,51 @@ class UI {
         // grab each value and clear it
         document.getElementById('title').value = ''
         document.getElementById('author').value = ''
-        document.getElementById('publisher').value = ''
+        document.getElementById('bookId').value = ''
     }
 }
 
 //store class: local storage 
+class store {
+    // getbooks
+   static  getBooks() {
+       let books 
+       // check if there is a current book item in local storage
+       if (localStorage.getItem('books') === null) {
+           // if there is no book in local storage, 
+           //set books to an empty array
+           books = []
+       } else { // if something was found. use json.parse to use as array
+           books = JSON.parse(localStorage.getItem('books'))
+       }
+       return books;
+    }
+
+    // addbooks
+   static  addBook(book) {
+       //get books from local storage
+       const books = store.getBooks()
+       // push on whatever is passed in addBook(book) as a book
+       books.push(book)
+       // reset to local storage
+       // convert books array to string
+       localStorage.setItem('books', JSON.stringify(books))
+    }
+
+    // remove books
+    static removeBook(bookId) {
+        const books = store.getBooks()
+        books.forEach((book, index) => {
+            // check if the current book being looped through
+            //matches the one being removed
+            if(book.bookId === bookId) {
+                books.splice(index, 1)
+            }
+        })
+        // reset local storage after book has been removed
+        localStorage.setItem('books', JSON.stringify(books))
+    }
+}
 
 //events handlers: display books
 document.addEventListener('DOMContentLoaded', UI.displayBooks)
@@ -96,18 +130,24 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
     // get form values
     const title = document.getElementById('title').value
     const author = document.getElementById('author').value
-    const publisher = document.getElementById('publisher').value
+    const bookId = document.getElementById('bookId').value
 
 
     //form validation
-    if(title === '' || author === '' || publisher === '') {
+    if(title === '' || author === '' || bookId === '') {
         UI.showAlert('pleaase fill all the boxes!', 'danger')
     } else {
         // instantiate book
-    const book = new Book(title, author, publisher);
+    const book = new Book(title, author, bookId);
 
     // add book to UI
     UI.addBookToList(book)
+
+    // add book to store
+    store.addBook(book)
+
+    //show ssuccess message
+    UI.showAlert('Book Added!', 'success!')
 
     // clear input fields after submit
     UI.clearFields()
@@ -118,8 +158,15 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
 // event to remove a book from UI and storage
 // targeting the actual list event propagation?
 document.getElementById('book-list').addEventListener('click', (e) => {
+    // remove book from UI
     e.preventDefault()
     // console.log(e.target
     UI.deleteBook(e.target)
+    //remove book from store
+    //traversing the DOM
+    // previous element sibling
+    store.removeBook(e.target.parentElement.previousElementSibling.textContent)
+    //show ssuccess message
+    UI.showAlert('Book Deleted!', 'success!')
     
 })
